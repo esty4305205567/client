@@ -6,12 +6,15 @@ const STORAGE_KEY = 'gamehub.session';
 export class ApiError extends Error {
   readonly status: number;
   readonly correlationId?: string;
+  /** true = 401 על בקשה מוגנת (ההתחברות פגה); המשתמש מועבר להתחברות ולכן אין toast */
+  readonly sessionExpired: boolean;
 
-  constructor(status: number, message: string, correlationId?: string) {
+  constructor(status: number, message: string, correlationId?: string, sessionExpired = false) {
     super(message);
     this.name = 'ApiError';
     this.status = status;
     this.correlationId = correlationId;
+    this.sessionExpired = sessionExpired;
   }
 }
 
@@ -108,8 +111,10 @@ export async function request<T>(path: string, options: RequestOptions = {}): Pr
     const errorBody = isErrorResponse(data) ? data : {};
     throw new ApiError(
       response.status,
-      errorBody.message ?? `שגיאה ${response.status}`,
-      errorBody.correlationId
+      errorBody.message ??
+        (response.status === 401 && !auth ? 'שם משתמש או סיסמה שגויים' : `שגיאה ${response.status}`),
+      errorBody.correlationId,
+      response.status === 401 && auth
     );
   }
 

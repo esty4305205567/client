@@ -10,10 +10,11 @@ export function errorMessage(error: unknown): string {
 
 /**
  * toast לשגיאת שרת. 409 מוצג בסגנון התנגשות (אדום בולט).
- * 401 לא מוצג כאן: api.ts כבר מנקה את ההתחברות והמשתמש מועבר למסך ההתחברות.
+ * פקיעת התחברות (401 על בקשה מוגנת) לא מוצגת כאן: api.ts מנקה את ההתחברות והמשתמש מועבר להתחברות.
+ * 401 על התחברות עם פרטים שגויים כן מוצג.
  */
 export function notifyApiError(error: unknown, title: string, conflictContext?: string): void {
-  if (isApiError(error) && error.status === 401) return;
+  if (isApiError(error) && error.sessionExpired) return;
 
   if (isApiError(error) && error.status === 409) {
     toast({
