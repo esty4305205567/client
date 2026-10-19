@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* פלטה: רקע #1E1E1E, משטחים #252526, ירוק #00E676 להצלחה ופעולות, אדום #EF5350 לשגיאה והתנגשות */
+@layer base {
+  :root {
+    --background: 0 0% 11.8%;
+    --foreground: 0 0% 93%;
+    --card: 240 1.3% 15%;
+    --card-foreground: 0 0% 93%;
+    --popover: 240 1.3% 15%;
+    --popover-foreground: 0 0% 93%;
+    --primary: 150 100% 45%;
+    --primary-foreground: 0 0% 7%;
+    --secondary: 240 3% 19%;
+    --secondary-foreground: 0 0% 93%;
+    --muted: 240 3% 19%;
+    --muted-foreground: 220 6% 64%;
+    --accent: 200 5% 20%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 1 83% 62.5%;
+    --destructive-foreground: 0 0% 100%;
+    --conflict: 1 83% 62.5%;
+    --conflict-foreground: 0 0% 100%;
+    --border: 0 0% 24%;
+    --input: 0 0% 27%;
+    --ring: 150 100% 45%;
+    --radius: 0.6rem;
+    --color-error-conflict: hsl(var(--conflict));
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+  }
+
+  /* פוקוס גלוי בכל אלמנט אינטראקטיבי, כולל קישורי טקסט */
+  a,
+  button,
+  input,
+  select,
+  [tabindex]:not([tabindex='-1']) {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-drift,
+  .animate-breathe,
+  .animate-aurora-a,
+  .animate-aurora-b,
+  .animate-bubble-in {
+    animation: none;
+  }
+}
+
+@layer components {
+  /* בועת זכוכית ירוקה: מרכז מסך הפתיחה */
+  .bubble-orb {
+    background:
+      radial-gradient(circle at 30% 25%, hsl(var(--primary) / 0.55), hsl(var(--primary) / 0.14) 55%, hsl(var(--primary) / 0.04) 72%),
+      hsl(var(--card));
+    box-shadow:
+      0 0 80px hsl(var(--primary) / 0.35),
+      inset 0 0 40px hsl(var(--primary) / 0.25);
+  }
+
+  /* לוח איסוף השלל: רשת עדינה על רקע כהה */
+  .game-grid-bg {
+    background-color: hsl(var(--card));
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.35) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.35) 1px, transparent 1px);
+    background-size: 36px 36px;
+  }
+}

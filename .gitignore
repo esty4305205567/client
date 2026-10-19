@@ -1,0 +1,23 @@
+# Dependencies and build output
+node_modules/
+dist/
+
+# Environment files (the example file is committed)
+.env
+.env.*
+!.env.example
+
+# Logs and editor files
+*.log
+npm-debug.log*
+.vs/
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+*.zip
+
+*.zip
