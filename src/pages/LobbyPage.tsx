@@ -12,7 +12,7 @@ export default function LobbyPage() {
         <h1 className="font-display text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-6xl">
           בחרו משחק.
           <br />
-          <span className="bg-gradient-to-l from-primary to-emerald-200 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-l from-primary to-emerald-500 dark:to-emerald-200 bg-clip-text text-transparent">
             תפסו ראשונים.
           </span>
         </h1>

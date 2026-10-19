@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { Gamepad2, History, LayoutGrid, LogOut, Menu, Shield, X } from 'lucide-react';
+import { Gamepad2, History, LayoutGrid, LogOut, Menu, Shield, User, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { ThemeToggle } from '@/components/custom/ThemeToggle';
 import { Button } from '@/components/ui/Button';
 import { useAuth } from '@/hooks/useAuth';
 import { cn } from '@/lib/utils';
@@ -17,6 +18,7 @@ interface NavItem {
 const NAV_ITEMS: readonly NavItem[] = [
   { to: '/', label: 'לובי', icon: LayoutGrid, end: true },
   { to: '/history', label: 'היסטוריה', icon: History },
+  { to: '/profile', label: 'פרופיל', icon: User },
   { to: '/admin', label: 'ניהול', icon: Shield, adminOnly: true },
 ];
 
@@ -77,7 +79,7 @@ export function Header() {
   }, [menuOpen]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/[0.06] bg-background/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-border/70 bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 w-full max-w-5xl items-center gap-4 px-4">
         <NavLink to="/" className={cn('flex shrink-0 items-center gap-2.5 rounded-lg font-display text-lg font-extrabold', focusRing)}>
           <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-glow">
@@ -89,15 +91,21 @@ export function Header() {
         <DesktopNav items={items} />
 
         <div className="ms-auto flex min-w-0 items-center gap-2">
-          <span className="flex min-w-0 items-center gap-2 text-sm">
+          <ThemeToggle />
+          <NavLink
+            to="/profile"
+            aria-label={`הפרופיל של ${user?.username ?? ''}`}
+            title="פרופיל"
+            className={cn('flex min-w-0 items-center gap-2 rounded-full text-sm', focusRing)}
+          >
             <span
-              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-secondary font-display font-bold text-primary ring-1 ring-border"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/15 font-display font-bold text-primary ring-1 ring-primary/40"
               aria-hidden
             >
               {user?.username.charAt(0).toUpperCase()}
             </span>
             <span className="hidden truncate text-muted-foreground sm:inline">{user?.username}</span>
-          </span>
+          </NavLink>
           <Button variant="ghost" size="sm" className="hidden md:inline-flex" onClick={signOut}>
             <LogOut className="h-4 w-4" aria-hidden />
             התנתקות
@@ -125,7 +133,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.18 }}
-            className="absolute inset-x-0 top-full border-b border-border bg-card/95 px-4 pb-4 pt-2 shadow-2xl shadow-black/50 backdrop-blur-xl md:hidden"
+            className="absolute inset-x-0 top-full border-b border-border bg-card/95 px-4 pb-4 pt-2 shadow-xl shadow-black/10 dark:shadow-black/50 backdrop-blur-xl md:hidden"
           >
             <ul className="mx-auto flex max-w-5xl flex-col gap-1">
               {items.map(({ to, label, icon: Icon, end }) => (

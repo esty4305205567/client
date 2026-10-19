@@ -16,7 +16,7 @@ export function GameGrid({ boxes, disabled, onCapture }: GameGridProps) {
     <div
       ref={containerRef}
       aria-label="לוח המשחק"
-      className="game-grid-bg relative h-[420px] w-full select-none overflow-hidden rounded-xl border border-border shadow-lg shadow-black/30 ring-1 ring-inset ring-white/[0.03]"
+      className="game-grid-bg relative h-[420px] w-full select-none overflow-hidden rounded-xl border border-border shadow-sm shadow-black/5 dark:shadow-lg dark:shadow-black/30"
     >
       {boxes.length === 0 && (
         <p className="absolute inset-0 flex items-center justify-center text-sm text-muted-foreground">

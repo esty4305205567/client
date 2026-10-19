@@ -7,9 +7,10 @@ import { authRoutes } from '@/features/auth/routes';
 import { gameRoutes } from '@/features/game/routes';
 import { historyRoutes } from '@/features/history/routes';
 import { lobbyRoutes } from '@/features/lobby/routes';
+import { profileRoutes } from '@/features/profile/routes';
 import NotFoundPage from '@/pages/NotFoundPage';
 
-// ציבורי: התחברות והרשמה. פרטי: לובי, משחק, היסטוריה וניהול (Admin בלבד).
+// ציבורי: התחברות והרשמה. פרטי: לובי, משחק, היסטוריה, פרופיל וניהול (Admin בלבד).
 const routes: RouteObject[] = [
   { element: <PublicRoute />, children: authRoutes },
   {
@@ -21,6 +22,7 @@ const routes: RouteObject[] = [
           ...lobbyRoutes,
           ...gameRoutes,
           ...historyRoutes,
+          ...profileRoutes,
           { element: <AdminRoute />, children: adminRoutes },
         ],
       },

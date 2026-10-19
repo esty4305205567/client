@@ -2,9 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-/* פלטה: רקע #1E1E1E, משטחים #252526, ירוק #00E676 להצלחה ופעולות, אדום #EF5350 לשגיאה והתנגשות */
+/* שתי ערכות צבע: בהיר (ברירת מחדל של :root) וכהה (class="dark" על html).
+   כהה: רקע #1E1E1E, משטחים #252526, ירוק #00E676. בהיר: רקע #F5F7FB, משטחים לבנים, ירוק כהה #008A4A שעומד בניגודיות. */
 @layer base {
   :root {
+    --background: 220 33% 97%;
+    --foreground: 224 30% 14%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 30% 14%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 30% 14%;
+    --primary: 152 100% 27%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 20% 92%;
+    --secondary-foreground: 224 30% 14%;
+    --muted: 220 20% 92%;
+    --muted-foreground: 220 10% 38%;
+    --accent: 220 30% 91%;
+    --accent-foreground: 224 30% 14%;
+    --destructive: 1 72% 48%;
+    --destructive-foreground: 0 0% 100%;
+    --conflict: 1 72% 48%;
+    --conflict-foreground: 0 0% 100%;
+    --border: 220 16% 85%;
+    --input: 220 16% 78%;
+    --ring: 152 100% 27%;
+    --radius: 0.6rem;
+    --color-error-conflict: hsl(var(--conflict));
+    --grid-line: 224 30% 14%;
+    color-scheme: light;
+  }
+
+  .dark {
     --background: 0 0% 11.8%;
     --foreground: 0 0% 93%;
     --card: 240 1.3% 15%;
@@ -26,8 +55,8 @@
     --border: 0 0% 24%;
     --input: 0 0% 27%;
     --ring: 150 100% 45%;
-    --radius: 0.6rem;
-    --color-error-conflict: hsl(var(--conflict));
+    --grid-line: 0 0% 100%;
+    color-scheme: dark;
   }
 
   * {
@@ -60,8 +89,13 @@
   .animate-breathe,
   .animate-aurora-a,
   .animate-aurora-b,
-  .animate-bubble-in {
+  .animate-bubble-in,
+  .animate-emerge,
+  .animate-letter-in,
+  .animate-letter-wave {
     animation: none;
+    opacity: 1;
+    clip-path: none;
   }
 }
 

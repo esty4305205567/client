@@ -1,6 +1,5 @@
-import { Label } from '@/components/ui/Label';
-import { Select } from '@/components/ui/Select';
-import { GAME_TYPES } from '@/lib/constants';
+import { ArrowDownWideNarrow, ArrowUpNarrowWide, CalendarDays, Gift, Hash, LayoutGrid, Trophy, Zap } from 'lucide-react';
+import { IconToggleGroup, type IconToggleOption } from '@/components/custom/IconToggleGroup';
 import { GameType, HistorySortBy } from '@/types';
 import type { GameTypeFilter } from '../types';
 
@@ -13,43 +12,35 @@ interface HistoryFiltersProps {
   onDescChange: (value: boolean) => void;
 }
 
-function parseGameType(value: string): GameTypeFilter {
-  const parsed = Number(value);
-  return GAME_TYPES.some((game) => game.value === parsed) ? (parsed as GameType) : '';
-}
+// אייקון לכל אפשרות. הטקסט נשאר כ-aria-label וכתיאור בריחוף
+const GAME_OPTIONS: readonly IconToggleOption<GameTypeFilter>[] = [
+  { value: '', label: 'כל המשחקים', icon: LayoutGrid },
+  { value: GameType.LootCollection, label: 'איסוף שלל', icon: Gift },
+  { value: GameType.NumberRace, label: 'מרוץ מספרים', icon: Hash },
+  { value: GameType.QuickQuiz, label: 'חידון מהיר', icon: Zap },
+];
+
+const SORT_OPTIONS: readonly IconToggleOption<HistorySortBy>[] = [
+  { value: HistorySortBy.Date, label: 'מיון לפי תאריך', icon: CalendarDays },
+  { value: HistorySortBy.Score, label: 'מיון לפי ניקוד', icon: Trophy },
+];
+
+const ORDER_OPTIONS: readonly IconToggleOption<'desc' | 'asc'>[] = [
+  { value: 'desc', label: 'סדר יורד', icon: ArrowDownWideNarrow },
+  { value: 'asc', label: 'סדר עולה', icon: ArrowUpNarrowWide },
+];
 
 export function HistoryFilters(props: HistoryFiltersProps) {
   return (
-    <div className="flex flex-wrap items-end gap-4">
-      <div className="grid w-44 gap-2">
-        <Label htmlFor="filter-game">משחק</Label>
-        <Select id="filter-game" value={props.gameType} onChange={(e) => props.onGameTypeChange(parseGameType(e.target.value))}>
-          <option value="">הכול</option>
-          {GAME_TYPES.map((game) => (
-            <option key={game.value} value={game.value}>
-              {game.label}
-            </option>
-          ))}
-        </Select>
-      </div>
-      <div className="grid w-44 gap-2">
-        <Label htmlFor="filter-sort">מיון לפי</Label>
-        <Select
-          id="filter-sort"
-          value={props.sortBy}
-          onChange={(e) => props.onSortByChange(Number(e.target.value) === HistorySortBy.Score ? HistorySortBy.Score : HistorySortBy.Date)}
-        >
-          <option value={HistorySortBy.Date}>תאריך</option>
-          <option value={HistorySortBy.Score}>ניקוד</option>
-        </Select>
-      </div>
-      <div className="grid w-36 gap-2">
-        <Label htmlFor="filter-order">סדר</Label>
-        <Select id="filter-order" value={props.desc ? 'desc' : 'asc'} onChange={(e) => props.onDescChange(e.target.value === 'desc')}>
-          <option value="desc">יורד</option>
-          <option value="asc">עולה</option>
-        </Select>
-      </div>
+    <div className="flex flex-wrap items-center gap-3" role="toolbar" aria-label="סינון ומיון ההיסטוריה">
+      <IconToggleGroup label="סינון לפי משחק" value={props.gameType} options={GAME_OPTIONS} onChange={props.onGameTypeChange} />
+      <IconToggleGroup label="מיון לפי" value={props.sortBy} options={SORT_OPTIONS} onChange={props.onSortByChange} />
+      <IconToggleGroup
+        label="כיוון המיון"
+        value={props.desc ? 'desc' : 'asc'}
+        options={ORDER_OPTIONS}
+        onChange={(value) => props.onDescChange(value === 'desc')}
+      />
     </div>
   );
 }

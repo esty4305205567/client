@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Toaster } from '@/components/ui/Toaster';
 import { AuthProvider } from '@/context/AuthContext';
+import { ThemeProvider } from '@/context/ThemeContext';
 import { queryClient } from '@/lib/queryClient';
 import App from './App';
 import './App.css';
@@ -13,6 +14,7 @@ if (!container) throw new Error('Root element #root was not found');
 
 createRoot(container).render(
   <StrictMode>
+    <ThemeProvider>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <AuthProvider>
@@ -21,5 +23,6 @@ createRoot(container).render(
         </AuthProvider>
       </BrowserRouter>
     </QueryClientProvider>
+    </ThemeProvider>
   </StrictMode>
 );

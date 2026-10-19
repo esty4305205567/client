@@ -1,10 +1,10 @@
-import { AuthShell } from '@/components/custom/AuthShell';
+import { AuthCard } from '@/components/custom/AuthCard';
 import { LoginForm } from '@/features/auth/components/LoginForm';
 
 export default function LoginPage() {
   return (
-    <AuthShell title="התחברות" description="היכנסו כדי לפתוח משחק או להצטרף לחבר.">
+    <AuthCard title="התחברות" description="היכנסו כדי לפתוח משחק או להצטרף לחבר.">
       <LoginForm />
-    </AuthShell>
+    </AuthCard>
   );
 }
